@@ -50,7 +50,7 @@ local Keybind = Tab:CreateKeybind({
 				PlrBox.Name = "PlayerEsp"
 			end
 			for _,v in pairs (PlrPr:GetDescendants()) do
-				if v.Name == "Right Arm" and v.Parent ~= lpName then
+				if v.Name == "Right Arm" and PlrPr.Name ~= lpName then
 					local GunBox = Instance.new("BoxHandleAdornment")
 					GunBox.Adornee = PlrPr["Right Arm"]
 					GunBox.Parent = PlrPr
@@ -84,4 +84,11 @@ local Keybind = Tab:CreateKeybind({
 			end
 		end
    	end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Destroy rayfield",
+   Callback = function()
+   		Rayfield:Destroy()
+   end,
 })
