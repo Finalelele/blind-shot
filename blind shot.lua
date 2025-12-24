@@ -90,18 +90,64 @@ local Keybind = Tab:CreateKeybind({
    	end,
 })
 
-local Button = Tab:CreateButton({
-   Name = "Anti kill (use every time in lobby before next round)",
-   Callback = function()
-   		for _,v in pairs (workspace:GetDescendants()) do
-			if v:IsA("BasePart") and v.Name == "HumanoidRootPart" then
-				local lp = game.Players.LocalPlayer
-				local lpName = lp.Name
-				local PlrPr = v.Parent
-				if PlrPr.Name == lpName then
-					v.Size = Vector3.new(5, 5, 5)
+local Toggle = Tab:CreateToggle({
+	Name = "Antikill",
+	CurrentValue = false,
+	Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(Value)
+		if Value then
+			for _,v in pairs (workspace:GetDescendants()) do
+				if v:IsA("Humanoid") then
+					local lp = game.Players.LocalPlayer
+					local lpName = lp.Name
+					local PlrPr = v.Parent
+					if PlrPr.Name == lpName then
+						v.PlatformStand = true
+					end
+				end
+			end
+		else
+			for _,v in pairs (workspace:GetDescendants()) do
+				if v:IsA("Humanoid") then
+					local lp = game.Players.LocalPlayer
+					local lpName = lp.Name
+					local PlrPr = v.Parent
+					if PlrPr.Name == lpName then
+						v.PlatformStand = false
+					end
 				end
 			end
 		end
-   end,
+	end,
+})
+
+local Toggle = Tab:CreateToggle({
+	Name = "win fight",
+	CurrentValue = false,
+	Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(Value)
+		if Value then
+			for _,v in pairs (workspace:GetDescendants()) do
+				if v:IsA("BasePart") and v.Name == "HumanoidRootPart" then
+					local lp = game.Players.LocalPlayer
+					local lpName = lp.Name
+					local PlrPr = v.Parent
+					if PlrPr.Name == lpName then
+						v.Anchored = true
+					end
+				end
+			end
+		else
+			for _,v in pairs (workspace:GetDescendants()) do
+				if v:IsA("BasePart") and v.Name == "HumanoidRootPart" then
+					local lp = game.Players.LocalPlayer
+					local lpName = lp.Name
+					local PlrPr = v.Parent
+					if PlrPr.Name == lpName then
+						v.Anchored = false
+					end
+				end
+			end
+		end
+	end,
 })
