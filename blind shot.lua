@@ -1,33 +1,37 @@
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
-   Name = "Blind Shot",
-   LoadingTitle = "diddy blud",
-   LoadingSubtitle = "by Finalelele",
-   ConfigurationSaving = {
-      Enabled = false,
-      FolderName = nil, -- Create a custom folder for your hub/game
-      FileName = "Big Hub"
-   },
-   Discord = {
-      Enabled = false,
-      Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD
-      RememberJoins = true -- Set this to false to make them join the discord every time they load it up
-   },
-   KeySystem = false, -- Set this to true to use our key system
-   KeySettings = {
-      Title = "Untitled",
-      Subtitle = "Key System",
-      Note = "No method of obtaining the key is provided",
-      FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
-      SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
-      GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
-      Key = {"Hello"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+	Name = "Blind Shot",
+	LoadingTitle = "diddy blud",
+	LoadingSubtitle = "by Finalelele",
+	ConfigurationSaving = {
+		Enabled = false,
+		FolderName = nil, -- Create a custom folder for your hub/game
+		FileName = "Big Hub"
+	},
+
+	ToggleUIKeybind = "F", -- The keybind to toggle the UI visibility (string like "K" or Enum.KeyCode)
+
+	Discord = {
+		Enabled = false,
+		Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD
+		RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+	},
+	KeySystem = false, -- Set this to true to use our key system
+	KeySettings = {
+		Title = "Untitled",
+		Subtitle = "Key System",
+		Note = "No method of obtaining the key is provided",
+		FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
+		SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
+		GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+		Key = {"Hello"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
    }
 })
 
-local Tab = Window:CreateTab("Esp players", 4483362458) -- Title, Image
+local Tab = Window:CreateTab("All in", 4483362458) -- Title, Image
 local Section = Tab:CreateSection("Esp players bruhhhh")
+local Paragraph = Tab:CreateParagraph({Title = "UI keybind F", Content = ""})
 local Keybind = Tab:CreateKeybind({
    	Name = "Create esp",
    	CurrentKeybind = "E",
@@ -87,8 +91,17 @@ local Keybind = Tab:CreateKeybind({
 })
 
 local Button = Tab:CreateButton({
-   Name = "Destroy rayfield",
+   Name = "Anti kill (use every time in lobby before next round)",
    Callback = function()
-   		Rayfield:Destroy()
+   		for _,v in pairs (workspace:GetDescendants()) do
+			if v:IsA("BasePart") and v.Name == "HumanoidRootPart" then
+				local lp = game.Players.LocalPlayer
+				local lpName = lp.Name
+				local PlrPr = v.Parent
+				if PlrPr.Name == lpName then
+					v.Size = Vector3.new(5, 5, 5)
+				end
+			end
+		end
    end,
 })
